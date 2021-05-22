@@ -19,47 +19,6 @@ import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import { LinearGradient } from 'expo-linear-gradient';
 const { width } = Dimensions.get('window');
 
-function Slider({ navigation: { navigate } }) {
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-  const navigation = useNavigation();
-  useEffect(() => {
-    fetch('https://blog.bogerdsoft.com/api/blog?slider=1&limit=5')
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
-
-  return (
-    <View style={styles.sliderCardContainer}>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <SwiperFlatList
-        autoplay
-        autoplayDelay={2}
-        autoplayLoop
-        index={1}
-        showPagination
-        data={data}
-        paginationStyle={{position: 'absolute', bottom: 12, justifyContent: 'center', alignItems: 'center'}}
-        style={styles.sliderCardList}
-        renderItem={({ item }) => (
-        <ImageBackground style={styles.sliderCard} source={{uri : item.image.path}}>
-          <TouchableOpacity style={styles.sliderCardContent} onPress={() => navigate('Blog', { id: item.id })}>
-            <LinearGradient colors={['#ffffff2e', '#ffffff2e', '#07090ef2']}>
-            <Text style={styles.sliderCardTitle}>{item.title}</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </ImageBackground>
-        )}
-      />
-      )}
-    </View>
-  );
-}
-
 function homeScreen({ navigation: { navigate } }) {
   const [isLoading, setLoading1] = useState(true);
   const [data, setData1] = useState([]);
